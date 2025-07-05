@@ -10,6 +10,9 @@ import { ContactModule } from './contact/contact.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { CommonModule } from './common/common.module';
+import { CollegeModule } from './features/college/college.module';
+import { CourseModule } from './features/course/course.module';
+import { ShareModule } from './features/share/share.module';
 
 
 @Module({
@@ -28,7 +31,10 @@ import { CommonModule } from './common/common.module';
     AuthModule,
     UserModule,
     CommonModule,
-    ContactModule
+    CollegeModule,
+    CourseModule,
+    ContactModule,
+    ShareModule
   ],
   controllers: [AppController],
   providers: [AppService],
