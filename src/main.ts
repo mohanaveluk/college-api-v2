@@ -1,8 +1,10 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import * as http from 'http';
+import { JwtService } from '@nestjs/jwt';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 require('dotenv').config();
 
 
@@ -22,7 +24,7 @@ async function bootstrap() {
   });
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
-  //app.useGlobalGuards(new JwtAuthGuard(app.get(JwtService), app.get(Reflector)));
+  app.useGlobalGuards(new JwtAuthGuard(app.get(JwtService), app.get(Reflector)));
   //app.useGlobalGuards(new JwtAuthGuard(app.get(Reflector)));
 
   // cors
