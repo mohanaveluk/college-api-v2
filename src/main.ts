@@ -43,7 +43,7 @@ async function bootstrap() {
   // Only enable Swagger in development mode
   if (process.env.NODE_ENV === 'development') {
     const config = new DocumentBuilder()
-      .setTitle('Authentication API')
+      .setTitle('College Search API')
       .setDescription('API documentation for authentication and contact endpoints')
       .setVersion('1.0')
       .addBearerAuth(

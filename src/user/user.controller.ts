@@ -39,16 +39,17 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ResendOTCDto } from './dto/resend-otc.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ToggleUserStatusDto } from './dto/toggle-user-status.dto';
-import { Public } from '../common/decorators/public.decorator';
+import { Public, Secured } from '../common/decorators/public.decorator';
 
   
   @ApiTags('users')
   @Controller('users')
-  @Public()
+  
   export class UserController {
     constructor(private readonly userService: UserService) {}
   
     @Put('profile')
+    @Public()
     @UseGuards(JwtAuthGuard, RolesGuard)
     @ApiBearerAuth('JWT-auth')
     @ApiOperation({ summary: 'Update user profile' })
@@ -68,6 +69,7 @@ import { Public } from '../common/decorators/public.decorator';
     }
   
     @Put('profile-image')
+    @Public()
     @UseGuards(JwtAuthGuard, RolesGuard)
     @ApiBearerAuth('JWT-auth')
     @UseInterceptors(FileInterceptor('image'))
@@ -109,7 +111,7 @@ import { Public } from '../common/decorators/public.decorator';
     async userProfile(
       @Request() req: any,
     ) {
-      return this.userService.getUserInfo(req.user.guid);
+      return this.userService.getUserInfo(req.user.uguid);
     }
 
   
@@ -181,6 +183,7 @@ import { Public } from '../common/decorators/public.decorator';
     }
   
     @Post('password-reset/request')
+    @Public()
     @ApiOperation({ summary: 'Request password reset' })
     @ApiResponse({ status: 200, description: 'Password reset email sent successfully' })
     @ApiResponse({ status: 400, description: 'Bad request - invalid email' })
@@ -197,6 +200,7 @@ import { Public } from '../common/decorators/public.decorator';
     }
   
     @Post('reset-password')
+    @Public()
     @ApiOperation({ summary: 'Reset password' })
     async resetPassword(@Body() resetPasswordDto: ResetPasswordDto): Promise<ResponseDto<any>> {
       try {
@@ -211,6 +215,7 @@ import { Public } from '../common/decorators/public.decorator';
     }
   
     @Post('send-code')
+    @Public()
     @ApiOperation({ summary: 'Send one-time code' })
     async sendOneTimeCode(@User('guid') userGuid: string): Promise<ResponseDto<any>> {
       try {
@@ -225,6 +230,7 @@ import { Public } from '../common/decorators/public.decorator';
     }
   
     @Post('validate-code')
+    @Public()
     @ApiOperation({ summary: 'Validate one-time code' })
     async validateOneTimeCode(
       @User('guid') userGuid: string,
@@ -243,6 +249,7 @@ import { Public } from '../common/decorators/public.decorator';
 
     
     @Post('resendotc')
+    @Public()
     @ApiOperation({ summary: 'Send OTC to mobile number' })
     @ApiResponse({ status: 200, description: 'OTC sent successfully' })
     @ApiResponse({ status: 401, description: 'Unauthorized - invalid token' })
@@ -265,6 +272,7 @@ import { Public } from '../common/decorators/public.decorator';
     
 
     @Get("roles")
+    @Public()
     @Roles(UserRole.Admin)
     @ApiOperation({ summary: 'Get all roles' })
     @ApiResponse({ 
@@ -287,6 +295,8 @@ import { Public } from '../common/decorators/public.decorator';
 
     
     @Get("users")
+    @Roles(UserRole.Admin)
+    @ApiBearerAuth('JWT-auth')
     @ApiOperation({ summary: 'Get all users' })
     @ApiResponse({ 
       status: 200, 
