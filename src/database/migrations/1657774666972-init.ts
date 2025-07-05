@@ -6,7 +6,7 @@ export class init1657774666972 implements MigrationInterface {
 
     await queryRunner.createTable(
       new Table({
-        name: 'roles1',
+        name: 'roles',
         columns: [
           {
             name: 'guid',
