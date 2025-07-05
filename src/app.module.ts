@@ -6,6 +6,13 @@ import { adminConfig, getDatabaseConfig, googleCloudConfig, jwtConfig, smtpConfi
 import { TypeOrmModule } from '@nestjs/typeorm';
 import ormConfig from './database/ormconfig';
 import { typeOrmConfig } from './config/typeorm.config';
+import { ContactModule } from './contact/contact.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { CommonModule } from './common/common.module';
+import { CollegeModule } from './features/college/college.module';
+import { CourseModule } from './features/course/course.module';
+import { ShareModule } from './features/share/share.module';
 
 
 @Module({
@@ -21,6 +28,13 @@ import { typeOrmConfig } from './config/typeorm.config';
       useFactory: typeOrmConfig,
     }),
     //TypeOrmModule.forRoot(ormConfig)
+    AuthModule,
+    UserModule,
+    CommonModule,
+    CollegeModule,
+    CourseModule,
+    ContactModule,
+    ShareModule
   ],
   controllers: [AppController],
   providers: [AppService],
