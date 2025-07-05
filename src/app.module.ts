@@ -7,6 +7,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import ormConfig from './database/ormconfig';
 import { typeOrmConfig } from './config/typeorm.config';
 import { ContactModule } from './contact/contact.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { CommonModule } from './common/common.module';
 
 
 @Module({
@@ -22,6 +25,9 @@ import { ContactModule } from './contact/contact.module';
       useFactory: typeOrmConfig,
     }),
     //TypeOrmModule.forRoot(ormConfig)
+    AuthModule,
+    UserModule,
+    CommonModule,
     ContactModule
   ],
   controllers: [AppController],
