@@ -34,7 +34,7 @@ export class init1657774666972 implements MigrationInterface {
 
     //applications
     await queryRunner.query(`
-          INSERT INTO roles1 (name, guid) VALUES 
+          INSERT INTO roles (name, guid) VALUES 
           ('user',    '7a7d386d-ba2d-4c72-923f-973821bc048d')
           ,('admin',   'd5306fc7-fffb-413c-bd4e-5683a952f2a5')
           ,('manager', 'bb12db75-107c-41d0-9a7a-6ed3f52088a4');
