@@ -7,6 +7,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import ormConfig from './database/ormconfig';
 import { typeOrmConfig } from './config/typeorm.config';
 import { ContactModule } from './contact/contact.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { CommonModule } from './common/common.module';
+import { CollegeModule } from './features/college/college.module';
+import { CourseModule } from './features/course/course.module';
+import { ShareModule } from './features/share/share.module';
 
 
 @Module({
@@ -22,7 +28,13 @@ import { ContactModule } from './contact/contact.module';
       useFactory: typeOrmConfig,
     }),
     //TypeOrmModule.forRoot(ormConfig)
-    ContactModule
+    AuthModule,
+    UserModule,
+    CommonModule,
+    CollegeModule,
+    CourseModule,
+    ContactModule,
+    ShareModule
   ],
   controllers: [AppController],
   providers: [AppService],
