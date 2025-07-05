@@ -3,6 +3,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
 import { use } from 'passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Role } from 'src/entities/user/roles.entity';
+import { User } from 'src/entities/user/user.entity';
 //import { Role } from 'src/entities/user/roles.entity';
 //import { User } from 'src/entities/user/user.entity';
 import { Repository } from 'typeorm';
@@ -10,21 +12,21 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    // @InjectRepository(User)
-    // private userRepository: Repository<User>,
-    // @InjectRepository(Role)
-    // private roleRepository: Repository<Role>
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+    @InjectRepository(Role)
+    private roleRepository: Repository<Role>
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET || 'your-secret-key',
+      secretOrKey: process.env.JWT_SECRET || 'your-secure-secret-key',
       passReqToCallback: false
     });
   }
 
   async validate(payload: any) {
-    /*
+    
     const user = await this.userRepository.findOne({
       where: { guid: payload.sub }
     });
@@ -36,9 +38,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const role = await this.roleRepository.findOne({
       where: { guid: user.role_id }
     });
-    */
-    const user = {email: "gcp@gmail.com", guid: "12345", first_name: "gcp", last_name: "study"};
-    const role = {name : "admin"};
+    
+    //const user = {email: "gcp@gmail.com", guid: "12345", first_name: "gcp", last_name: "study"};
+    //const role = {name : "admin"};
     return {
       email: user.email,
       uguid: user.guid,

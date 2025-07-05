@@ -24,7 +24,7 @@ import { OTC } from 'src/entities/user/otc.entity';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        secret: configService.get('JWT_SECRET') || 'your-secret-key',
+        secret: configService.get('JWT_SECRET') || 'your-secure-secret-key',
         signOptions: { expiresIn: '1d' },
       }),
       inject: [ConfigService],
