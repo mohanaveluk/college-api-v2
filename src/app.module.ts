@@ -6,6 +6,7 @@ import { adminConfig, getDatabaseConfig, googleCloudConfig, jwtConfig, smtpConfi
 import { TypeOrmModule } from '@nestjs/typeorm';
 import ormConfig from './database/ormconfig';
 import { typeOrmConfig } from './config/typeorm.config';
+import { ContactModule } from './contact/contact.module';
 
 
 @Module({
@@ -21,6 +22,7 @@ import { typeOrmConfig } from './config/typeorm.config';
       useFactory: typeOrmConfig,
     }),
     //TypeOrmModule.forRoot(ormConfig)
+    ContactModule
   ],
   controllers: [AppController],
   providers: [AppService],
